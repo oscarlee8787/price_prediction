@@ -11,5 +11,6 @@ def load_data(filepath: str):
     data = data.loc[:,['Date','Open','High','Low','Close','Volume']]
     data = data.set_index('Date')
     data.index = pd.to_datetime(data.index,unit='ns')
+    # something
 
     return data
