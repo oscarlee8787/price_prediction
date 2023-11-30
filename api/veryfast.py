@@ -23,8 +23,6 @@ app.add_middleware(
 # 💡 Preload the model to accelerate the predictions
 app.state.model = models.load_model('/Users/johannes_macbookpro/code/oscarlee8787/price_prediction/models/btc_model/saved_model.pb')
 
-@app.get("/predict")
-
 data_dummy = pd.read_csv('/Users/johannes_macbookpro/code/oscarlee8787/price_prediction/raw_data/BTC-USD_dummy.csv')
 
 data_dummy = data_dummy.loc[:,['Date','Open','High','Low','Close','Volume']]
@@ -38,9 +36,7 @@ dummy_array = np.array(dummy_normed)
 
 dummy_array = np.expand_dims(dummy_array, axis=0)
 
-preds_dummy = model.predict(dummy_array)
 
-preds_dummy[0][0]
 
 def denormalize_zero_base(normalized, initial_value):
     """
@@ -54,19 +50,11 @@ def denormalize_zero_base(normalized, initial_value):
     # Denormalize by multiplying each value by the initial value + 1
     return normalized * (initial_value + 1)
 
-denormalize_zero_base(preds_dummy[0][0],13657.200195)
-
-data.head(1)
-
-data_dummy.head(1)
-
-diff_pred = denormalize_zero_base(preds_dummy[0][0],37796.792969)
-
-prediction_dummy = data_dummy[aim][0] + diff_pred
 
 
+@app.get("/predict")
 def predict(
-        X_any
+        X=dummy_array
     ):
     """
     Make a single price prediction.
@@ -83,8 +71,11 @@ def predict(
     model = app.state.model
     #assert model is not None
 
-    X_processed = preprocess_features(X_any)
-    y_pred = model.predict(X_processed)
+    preds_dummy = model.predict(X)[0][0]
+
+    diff_pred = denormalize_zero_base(preds_dummy,37796.792969)
+
+    y_pred = data_dummy['Close'][0] + diff_pred
 
     return dict(price_prediction = float(y_pred)) #HERE WE NEED DO SEE WHAT OUR MODEL PREDICTS: Price or Logistic??
 
