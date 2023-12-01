@@ -1,0 +1,8 @@
+Metadata-Version: 2.1
+Name: price-prediction
+Version: 0.0.12
+Summary: Crypto Daily Price Model (api_pred)
+Home-page: https://github.com/oscarlee8787/price_prediction
+Author: Le Wagon
+Author-email: contact@lewagon.org
+License: MIT
