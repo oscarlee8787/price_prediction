@@ -1,6 +1,7 @@
 import pandas as pd
+import numpy as np
 from tensorflow import keras
-from ml_logic.preprocessor import *
+# from ml_logic.preprocessor import normalise_zero_base
 
 
 #from price_prediction.ml_logic.registry import load_model #LOAD PRICE MODEL
@@ -21,9 +22,22 @@ app.add_middleware(
 )
 
 # 💡 Preload the model to accelerate the predictions
-app.state.model = models.load_model('/Users/johannes_macbookpro/code/oscarlee8787/price_prediction/models/btc_model/saved_model.pb')
+app.state.model = keras.models.load_model('/Users/Oscar/code/oscarlee8787/price_prediction/models/btc_model_2')
 
-data_dummy = pd.read_csv('/Users/johannes_macbookpro/code/oscarlee8787/price_prediction/raw_data/BTC-USD_dummy.csv')
+def normalise_zero_base(continuous):
+    """
+    Normalize a continuous variable to a zero-base scale.
+    Parameters:
+    - continuous (pandas.Series): The continuous variable to be normalized.
+    Returns:
+    - pandas.Series: The normalized continuous variable.
+    """
+    # Normalize by dividing each value by the first value and subtracting 1
+    return continuous / continuous.iloc[0] - 1
+
+
+data_dummy = pd.read_csv('/Users/Oscar/code/oscarlee8787/price_prediction/raw_data/BTC-USD_dummy.csv')
+print(data_dummy)
 
 data_dummy = data_dummy.loc[:,['Date','Open','High','Low','Close','Volume']]
 
@@ -54,7 +68,7 @@ def denormalize_zero_base(normalized, initial_value):
 
 @app.get("/predict")
 def predict(
-        X=dummy_array
+        X
     ):
     """
     Make a single price prediction.
@@ -69,13 +83,14 @@ def predict(
     #X_pred['prediction_date'] = pd.Timestamp(prediction_date, tz='US/Eastern')
 
     model = app.state.model
-    #assert model is not None
+    assert model is not None
 
-    preds_dummy = model.predict(X)[0][0]
+    preds_dummy = model.predict(dummy_array)[0][0]
 
     diff_pred = denormalize_zero_base(preds_dummy,37796.792969)
 
     y_pred = data_dummy['Close'][0] + diff_pred
+    # y_pred = 8
 
     return dict(price_prediction = float(y_pred)) #HERE WE NEED DO SEE WHAT OUR MODEL PREDICTS: Price or Logistic??
 
