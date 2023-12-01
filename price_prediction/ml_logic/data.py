@@ -1,5 +1,12 @@
 import pandas as pd
 
+def download_data():
+    '''
+    Takes a date (string in "%Y-%m-%d %H:%M:%S" format) as an input, calls 5 days of historic data from Binance API
+    Outputs a dataframe
+    '''
+
+
 def load_data(filepath: str):
     '''
     Read data from the CSV file into a DataFrame
