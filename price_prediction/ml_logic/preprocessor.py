@@ -40,6 +40,20 @@ def normalise_zero_base(continuous):
     return continuous / continuous.iloc[0] - 1
 
 
+# Function to turn the normalized number back to an actual value
+def denormalize_zero_base(normalized, initial_value):
+    """
+    Denormalize a zero-base normalized continuous variable.
+    Parameters:
+    - normalized (pandas.Series): The normalized continuous variable to be denormalized.
+    - initial_value (float): The initial value before normalization.
+    Returns:
+    - pandas.Series: The denormalized continuous variable.
+    """
+    # Denormalize by multiplying each value by the initial value + 1
+    return normalized * (initial_value + 1)
+
+
 # Function to extract windowed data from a continuous variable
 def extract_window_data(continuous, window_len=5, zero_base=True):
     """
@@ -70,6 +84,7 @@ def extract_window_data(continuous, window_len=5, zero_base=True):
 
     # Convert the list of windowed data to a numpy array
     return np.array(window_data)
+
 
 def prepare_data(train_data, test_data, continuous, aim, window_len=10, zero_base=True, test_size=0.2):
     """
