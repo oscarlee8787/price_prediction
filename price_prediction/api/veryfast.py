@@ -34,6 +34,7 @@ def predict(X):
     calls 5 days of historic data before the input date from Binance API
     uses that as the input for the prediction function
     makes a prediction for the day after the input.
+
     Date sample: 2023-11-07 08:00:00
     """
     model = app.state.model
@@ -45,12 +46,16 @@ def predict(X):
     data = load_data_from_binance(api_data)
 
     df_normed = normalise_zero_base(data)
-    df_array = np.array(df_normed) # becuz the model takes an array as an input
-    df_array = np.expand_dims(df_array, axis=0) # and the array needs to have a shape of (1,5,5)
+    df_array = np.array(df_normed)
+    # becuz the model takes an array as an input
+    df_array = np.expand_dims(df_array, axis=0)
+    # and the array needs to have a shape of (1,5,5)
 
-    preds = model.predict(df_array)[0][0] # the model outputs a normalized number
+    preds = model.predict(df_array)[0][0]
+    # the model outputs a normalized number
 
-    diff_pred = denormalize_zero_base(preds,data['Close'][0]) # which needs to be denormalized by this function
+    diff_pred = denormalize_zero_base(preds,data['Close'][0])
+    # which needs to be denormalized by this function
 
     y_pred = data['Close'][0] + diff_pred
     # the number we got is the price difference from the first of the 5-day window, so we add it back to the first day
