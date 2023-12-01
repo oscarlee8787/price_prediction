@@ -22,7 +22,7 @@ app.add_middleware(
 )
 
 # 💡 Preload the model to accelerate the predictions
-app.state.model = keras.models.load_model('/Users/Oscar/code/oscarlee8787/price_prediction/models/btc_model')
+app.state.model = keras.models.load_model('/Users/Oscar/code/oscarlee8787/price_prediction/models/btc_model_2')
 
 def normalise_zero_base(continuous):
     """
@@ -82,15 +82,15 @@ def predict(
     # Convert to US/Eastern TZ-aware ... or EUROPE??
     #X_pred['prediction_date'] = pd.Timestamp(prediction_date, tz='US/Eastern')
 
-    # model = app.state.model
-    #assert model is not None
+    model = app.state.model
+    assert model is not None
 
-    # preds_dummy = model.predict(X)[0][0]
+    preds_dummy = model.predict(dummy_array)[0][0]
 
-    # diff_pred = denormalize_zero_base(preds_dummy,37796.792969)
+    diff_pred = denormalize_zero_base(preds_dummy,37796.792969)
 
-    # y_pred = data_dummy['Close'][0] + diff_pred
-    y_pred = 8
+    y_pred = data_dummy['Close'][0] + diff_pred
+    # y_pred = 8
 
     return dict(price_prediction = float(y_pred)) #HERE WE NEED DO SEE WHAT OUR MODEL PREDICTS: Price or Logistic??
 
