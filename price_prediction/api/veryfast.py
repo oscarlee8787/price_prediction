@@ -34,6 +34,7 @@ def predict(X):
     calls 5 days of historic data before the input date from Binance API
     uses that as the input for the prediction function
     makes a prediction for the day after the input.
+
     Date sample: 2023-11-07 08:00:00
     """
     model = app.state.model
