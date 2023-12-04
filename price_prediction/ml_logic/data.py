@@ -2,6 +2,8 @@ import pandas as pd
 import requests
 from datetime import datetime
 from datetime import timedelta
+from google.cloud import storage
+from io import StringIO
 
 
 def download_data(endtime:str, symbol:str, interval:str, limit=5):
@@ -49,7 +51,12 @@ def download_data(endtime:str, symbol:str, interval:str, limit=5):
                 'taker_base_vol', 'taker_quote_vol', 'ignore']:
         df[col] = df[col].astype(float)
 
-    return df
+    client = storage.Client()
+    bucket = client.bucket('data-wrangling')
+    blob = bucket.blob('BTC-USD_dummy.csv')
+    blob.upload_from_string(df.to_csv(index=False), content_type='text/csv')
+
+    return 0
 
 
 def load_data(filepath: str):
@@ -68,13 +75,20 @@ def load_data(filepath: str):
     return data
 
 
-def load_data_from_binance(df:pd.DataFrame):
+def load_data_from_binance():
     '''
     Reads data from the DataFrame downloaded with Binance api
     Select specific columns from the DataFrame
     Set the 'Date' column as the index of the DataFrame
     Convert the index to datetime format
     '''
+    client = storage.Client()
+    bucket = client.bucket('data-wrangling')
+    blob = bucket.blob('BTC-USD_dummy.csv')
+    content = blob.download_as_text()
+    # Convert CSV content to a pandas DataFrame
+    df = pd.read_csv(StringIO(content))
+
     df = df.loc[:,['Date','Open','High','Low','Close','Volume']]
     df = df.set_index('Date')
     df.index = pd.to_datetime(df.index,unit='ms')
