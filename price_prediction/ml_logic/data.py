@@ -1,6 +1,8 @@
 import pandas as pd
 import requests
 from datetime import datetime
+from datetime import timedelta
+
 
 def download_data(endtime:str, symbol:str, interval:str, limit=5):
     '''
@@ -21,8 +23,9 @@ def download_data(endtime:str, symbol:str, interval:str, limit=5):
         print('Issue with Binance API general connectivity, did not fetch data')
         return 1
 
-    dt_obj = datetime.strptime(endtime,'%Y-%m-%d %H:%M:%S')
-    millisec = int(dt_obj.timestamp() * 1000) #converts the date/time from string to milliseconds that the api requires
+    dt_obj = datetime.strptime(endtime,'%Y-%m-%d')
+    next_day = dt_obj + timedelta(days=1) #adds one day so we get 5 days from Binance API, with input day as the last day
+    millisec = int(next_day.timestamp() * 1000) #converts the date/time from string to milliseconds that the api requires
 
     params = {'endTime':millisec,
               'interval':interval,
