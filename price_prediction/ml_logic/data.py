@@ -21,7 +21,7 @@ def download_data(endtime:str, symbol:str, interval:str, limit=5):
         print('Issue with Binance API general connectivity, did not fetch data')
         return 1
 
-    dt_obj = datetime.strptime(endtime,'%Y-%m-%d %H:%M:%S')
+    dt_obj = datetime.strptime(endtime,'%Y-%m-%d') #%H:%M:%S')
     millisec = int(dt_obj.timestamp() * 1000) #converts the date/time from string to milliseconds that the api requires
 
     params = {'endTime':millisec,
