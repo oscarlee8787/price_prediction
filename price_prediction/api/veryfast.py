@@ -1,10 +1,10 @@
+import os
 import pandas as pd
 import numpy as np
 from tensorflow import keras
 from price_prediction.ml_logic.preprocessor import normalise_zero_base, denormalize_zero_base
+
 # from price_prediction.ml_logic.data import download_data
-
-
 #from price_prediction.ml_logic.registry import load_model #LOAD PRICE MODEL
 #from price_prediction.ml_logic.preprocessor import preprocess_features #PREPROCESS INSERTED DATA
 
@@ -23,7 +23,8 @@ app.add_middleware(
 )
 
 # 💡 Preload the model to accelerate the predictions
-app.state.model = keras.models.load_model('/Users/Oscar/code/oscarlee8787/price_prediction/price_prediction/models/btc_model_2')
+
+app.state.model = keras.models.load_model(os.path.join(os.path.dirname(__file__), "..", "models", "btc_model_2", "btc_model_3.h5"))
 
 # def normalise_zero_base(continuous):
 #     """
@@ -37,7 +38,7 @@ app.state.model = keras.models.load_model('/Users/Oscar/code/oscarlee8787/price_
 #     return continuous / continuous.iloc[0] - 1
 
 
-data_dummy = pd.read_csv('/Users/Oscar/code/oscarlee8787/price_prediction/raw_data/BTC-USD_dummy.csv')
+data_dummy = pd.read_csv('/Users/johannes_macbookpro/code/oscarlee8787/price_prediction/raw_data/BTC-USD_dummy.csv')
 print(data_dummy)
 
 data_dummy = data_dummy.loc[:,['Date','Open','High','Low','Close','Volume']]
