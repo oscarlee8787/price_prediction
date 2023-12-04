@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 from tensorflow import keras
@@ -23,7 +24,8 @@ app.add_middleware(
 )
 
 # 💡 Preload the model to accelerate the predictions
-app.state.model = keras.models.load_model('/Users/Oscar/code/oscarlee8787/price_prediction/price_prediction/models/btc_model_2')
+
+app.state.model = keras.models.load_model(os.path.join(os.path.dirname(__file__), "..", "models", "btc_model_2", "btc_model_3.h5"))
 
 @app.get("/predict")
 def predict(X):
