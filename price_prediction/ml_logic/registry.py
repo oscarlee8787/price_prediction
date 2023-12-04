@@ -1,7 +1,8 @@
 import os
 import glob
 from colorama import Fore, Style
-import tensorflow as tf
+from tensorflow import keras
+from price_prediction.ml_logic.params import *
 
 def load_model(stage="Production"):
     """
@@ -37,3 +38,10 @@ def load_model(stage="Production"):
     print("✅ Model loaded from local disk")
 
     return latest_model
+
+
+if __name__ == "__main__":
+    if MODEL_TARGET == 'GCP':
+        print('saving to the cloud')
+    else:
+        print('saving locally')
