@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 from tensorflow import keras
@@ -23,19 +24,20 @@ app.add_middleware(
 )
 
 # 💡 Preload the model to accelerate the predictions
-app.state.model = keras.models.load_model('/Users/Oscar/code/oscarlee8787/price_prediction/price_prediction/models/btc_model_2')
+
+app.state.model = keras.models.load_model(os.path.join(os.path.dirname(__file__), "..", "models", "btc_model_2", "btc_model_3.h5"))
 
 @app.get("/predict")
 def predict(X):
     """
-    X is provided as a string by the user in "%Y-%m-%d %H:%M:%S" format from the streamlit frontend.
+    X is provided as a string by the user in "%Y-%m-%d" format from the streamlit frontend.
 
     Takes a date as an input
     calls 5 days of historic data before the input date from Binance API
     uses that as the input for the prediction function
     makes a prediction for the day after the input.
 
-    Date sample: 2023-11-07 08:00:00
+    Date sample: 2023-11-07
     """
     model = app.state.model
     assert model is not None

@@ -2,7 +2,6 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import datetime
-import datetime
 import yfinance as yf
 import plotly.graph_objs as go
 import requests
@@ -30,11 +29,9 @@ st.markdown("""# Crypto Price Prediction
 """)
 
 d = st.date_input(
-    "Please enter a date starting from today to 14 days into the future",
+    "Please enter a date",
     datetime.date.today())
     #datetime.date(2023, 12, 8))
-
-st.write('') #spacer
 
 # DROP DOWN MENU -----------------------------------------------------------------------
 
@@ -118,15 +115,15 @@ if coin != None:
 #unix_milliseconds = convert_date_to_unix_milliseconds(date_string)
 #print(f"Unix Time in milliseconds: {unix_milliseconds}")
 
-
+# Adding one day to the current date
+next_day = d + datetime.timedelta(days=1)
 
 # SENDING REQUEST TO OUR FAST API ------------------------------------
 params = dict(
-    coin=coin,
-    d=d)
+    X=d)
 
 if coin != None:
     url = 'http://localhost:8000/predict/'  # FastAPI server URL
     response = requests.get(url, params=params).json()
 
-#st.write(response)
+st.write(f'The Bitcoin price prediction for {next_day} is: {response["price_prediction"]}')
