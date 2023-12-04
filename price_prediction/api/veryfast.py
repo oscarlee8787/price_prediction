@@ -30,14 +30,14 @@ app.state.model = keras.models.load_model(os.path.join(os.path.dirname(__file__)
 @app.get("/predict")
 def predict(X):
     """
-    X is provided as a string by the user in "%Y-%m-%d %H:%M:%S" format from the streamlit frontend.
+    X is provided as a string by the user in "%Y-%m-%d" format from the streamlit frontend.
 
     Takes a date as an input
     calls 5 days of historic data before the input date from Binance API
     uses that as the input for the prediction function
     makes a prediction for the day after the input.
 
-    Date sample: 2023-11-07 08:00:00
+    Date sample: 2023-11-07
     """
     model = app.state.model
     assert model is not None

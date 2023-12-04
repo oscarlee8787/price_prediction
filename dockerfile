@@ -6,4 +6,4 @@ COPY /requirements.txt /requirements.txt
 RUN pip install --upgrade pip
 RUN pip install -r /requirements.txt
 
-CMD uvicorn price_prediction.api.veryfast:app --host 0.0.0.0
+CMD uvicorn price_prediction.api.veryfast:app --host 0.0.0.0 --port $PORT
