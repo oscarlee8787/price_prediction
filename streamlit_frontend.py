@@ -33,9 +33,10 @@ d = st.date_input(
     datetime.date.today())
     #datetime.date(2023, 12, 8))
 
+d_str = str(d)
+download_data(endtime=d_str, symbol='BTCUSDT', interval='1d')
 
 # DROP DOWN MENU -----------------------------------------------------------------------
-download_data(endtime=d, symbol='BTCUSDT', interval='1d')
 
 # List of options for the dropdown
 options = ["please select", "Bitcoin"]
@@ -118,14 +119,13 @@ if coin != None:
 #print(f"Unix Time in milliseconds: {unix_milliseconds}")
 
 # Adding one day to the current date
-# next_day = d + datetime.timedelta(days=1)
+next_day = d + datetime.timedelta(days=1)
 
 # SENDING REQUEST TO OUR FAST API ------------------------------------
 params = dict(
-    X=d)
+    X=d_str)
 
 if coin != None:
     url = 'https://tuesday-wgsxngkdcq-oe.a.run.app/predict'  # FastAPI server URL
     response = requests.get(url, params=params).json()
-    st.write(response)
-    st.write(f''' ## The Bitcoin price prediction for is: {response["price_prediction"]}''')
+    st.write(f''' ## The Bitcoin price prediction for {next_day} is: {response["price_prediction"]}''')
