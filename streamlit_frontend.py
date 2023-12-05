@@ -7,58 +7,6 @@ import yfinance as yf
 import requests
 from price_prediction.ml_logic.data import download_data
 
-def download_data(endtime:str, symbol:str, interval:str, limit=5):
-    '''
-    Takes a date as an input,
-    converts to millisecond,
-    calls 5 days of historic data from Binance API
-    creates a dataframe with 'Date', 'Open','High','Low','Close','Volume' as columns
-    saves the dataframe to Google Cloud Storage under 'data-wrangling'
-    endtime: str in "%Y-%m-%d %H:%M:%S" format
-    symbol examples: BTCUSDT, ETHUSDT
-    interval examples: 1d, 1h, 1m
-    '''
-
-    root_url = 'https://api.binance.com/api/v3/'
-
-    check_url = root_url + 'ping'
-
-    if requests.get(check_url).ok != True: #calls the ping endpoint of Binance to check if the api is working
-        print('Issue with Binance API general connectivity, did not fetch data')
-        return 1
-
-    dt_obj = datetime.strptime(endtime,'%Y-%m-%d')
-    next_day = dt_obj + timedelta(days=1) #adds one day so we get 5 days from Binance API, with input day as the last day
-    millisec = int(next_day.timestamp() * 1000) #converts the date/time from string to milliseconds that the api requires
-
-    params = {'endTime':millisec,
-              'interval':interval,
-              'symbol':symbol,
-              'limit':limit
-              }
-    kline_url = root_url + 'klines'
-
-    if requests.get(url=kline_url, params=params).ok != True:
-        print('Issue with Binance API kline connectivity, did not fetch data')
-        return 1
-
-    data = requests.get(url=kline_url, params=params).json()
-
-    df = pd.DataFrame(data)
-    df.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'Volume',
-              'k_close_time', 'quote_asset_volume', 'num_trades',
-              'taker_base_vol', 'taker_quote_vol', 'ignore']
-    for col in ['Open', 'High', 'Low', 'Close', 'Volume',
-                'quote_asset_volume', 'num_trades',
-                'taker_base_vol', 'taker_quote_vol', 'ignore']:
-        df[col] = df[col].astype(float)
-
-    client = storage.Client()
-    bucket = client.bucket('data-wrangling')
-    blob = bucket.blob(f'BTC-USD_{endtime}.csv')
-    blob.upload_from_string(df.to_csv(index=False), content_type='text/csv')
-
-    return 0
 
 # BACKGROUND COLOR --------------------------------------------------------------------
 def set_bg_color():
@@ -180,7 +128,5 @@ params = dict(
 
 if coin != None:
     url = 'https://tuesday-wgsxngkdcq-oe.a.run.app/predict'  # FastAPI server URL
-    st.write(params)
     response = requests.get(url, params=params).json()
-    #st.write(response.url)
     st.write(f''' ## The Bitcoin price prediction for {next_day} is: {response["price_prediction"]}''')
