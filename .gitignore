@@ -1,5 +1,4 @@
 raw_data/
 .DS_Store
 .pyc
-*.pyc
 .env
