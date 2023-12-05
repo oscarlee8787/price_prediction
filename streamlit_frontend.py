@@ -125,7 +125,7 @@ params = dict(
     X=d)
 
 if coin != None:
-    url = 'https://tuesday-wgsxngkdcq-oe.a.run.app'  # FastAPI server URL
+    url = 'https://tuesday-wgsxngkdcq-oe.a.run.app/predict'  # FastAPI server URL
     response = requests.get(url, params=params).json()
     st.write(response)
     st.write(f''' ## The Bitcoin price prediction for is: {response["price_prediction"]}''')
