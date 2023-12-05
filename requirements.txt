@@ -7,3 +7,6 @@ datetime
 tensorflow
 colorama
 yfinance
+google-cloud-storage
+google-cloud-core
+google-cloud
