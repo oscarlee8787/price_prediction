@@ -118,7 +118,7 @@ if coin != None:
 #print(f"Unix Time in milliseconds: {unix_milliseconds}")
 
 # Adding one day to the current date
-next_day = d + datetime.timedelta(days=1)
+# next_day = d + datetime.timedelta(days=1)
 
 # SENDING REQUEST TO OUR FAST API ------------------------------------
 params = dict(
@@ -127,4 +127,4 @@ params = dict(
 if coin != None:
     url = 'https://tuesday-wgsxngkdcq-oe.a.run.app'  # FastAPI server URL
     response = requests.get(url, params=params).json()
-    st.write(f''' ## The Bitcoin price prediction for {next_day} is: {response["price_prediction"]}''')
+    st.write(f''' ## The Bitcoin price prediction for is: {response["price_prediction"]}''')
