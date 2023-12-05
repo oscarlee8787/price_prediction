@@ -35,7 +35,7 @@ d = st.date_input(
 
 
 # DROP DOWN MENU -----------------------------------------------------------------------
-download_data(endtime=X, symbol='BTCUSDT', interval='1d')
+download_data(endtime=d, symbol='BTCUSDT', interval='1d')
 
 # List of options for the dropdown
 options = ["please select", "Bitcoin"]
