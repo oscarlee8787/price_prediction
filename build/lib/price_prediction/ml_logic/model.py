@@ -105,7 +105,7 @@ def evaluate_model(model, X, y):
     )
 
     loss = metrics["loss"]
-    # mae = metrics["mae"]
+    mae = metrics["mae"]
 
     print(f"✅ Model evaluated, loss: {round(loss, 2)}")
 
