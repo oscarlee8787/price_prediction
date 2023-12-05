@@ -92,5 +92,5 @@ def load_data_from_binance():
     df = df.loc[:,['Date','Open','High','Low','Close','Volume']]
     df = df.set_index('Date')
     df.index = pd.to_datetime(df.index,unit='ms')
-
+    #something to commit
     return df
