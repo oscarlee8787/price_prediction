@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 from tensorflow import keras
 from price_prediction.ml_logic.preprocessor import normalise_zero_base, denormalize_zero_base
-from price_prediction.ml_logic.data import download_data, load_data_from_binance
+from price_prediction.ml_logic.data import download_data, load_binance_data_from_gcloud
 
 
 #from price_prediction.ml_logic.registry import load_model #LOAD PRICE MODEL
@@ -44,10 +44,10 @@ def predict(X):
 
     #api_data = download_data(endtime=X, symbol='BTCUSDT', interval='1d')
     #      sample date: '2023-11-07 08:00:00'
-    #download_data(endtime=X, symbol='BTCUSDT', interval='1d')
+    download_data(endtime=X, symbol='BTCUSDT', interval='1d')
 
 
-    data = load_data_from_binance()
+    data = load_binance_data_from_gcloud(X)
 
     df_normed = normalise_zero_base(data)
     df_array = np.array(df_normed)
@@ -64,7 +64,7 @@ def predict(X):
     y_pred = data['Close'][0] + diff_pred
     # the number we got is the price difference from the first of the 5-day window, so we add it back to the first day
 
-    return dict(price_prediction = float(y_pred)) #HERE WE NEED DO SEE WHAT OUR MODEL PREDICTS: Price or Logistic??
+    return dict(price_prediction = round(y_pred,2)) #HERE WE NEED DO SEE WHAT OUR MODEL PREDICTS: Price or Logistic??
 
 
 @app.get("/")

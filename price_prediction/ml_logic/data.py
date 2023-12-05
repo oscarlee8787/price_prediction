@@ -11,7 +11,8 @@ def download_data(endtime:str, symbol:str, interval:str, limit=5):
     Takes a date as an input,
     converts to millisecond,
     calls 5 days of historic data from Binance API
-    outputs a dataframe with 'Date', 'Open','High','Low','Close','Volume' as columns
+    creates a dataframe with 'Date', 'Open','High','Low','Close','Volume' as columns
+    saves the dataframe to Google Cloud Storage under 'data-wrangling'
     endtime: str in "%Y-%m-%d %H:%M:%S" format
     symbol examples: BTCUSDT, ETHUSDT
     interval examples: 1d, 1h, 1m
@@ -53,7 +54,7 @@ def download_data(endtime:str, symbol:str, interval:str, limit=5):
 
     client = storage.Client()
     bucket = client.bucket('data-wrangling')
-    blob = bucket.blob('BTC-USD_dummy.csv')
+    blob = bucket.blob(f'BTC-USD_{endtime}.csv')
     blob.upload_from_string(df.to_csv(index=False), content_type='text/csv')
 
     return 0
@@ -75,8 +76,9 @@ def load_data(filepath: str):
     return data
 
 
-def load_data_from_binance():
+def load_binance_data_from_gcloud(endtime):
     '''
+    Goes to google cloud storage data-wrangling bucket
     Reads data from the DataFrame downloaded with Binance api
     Select specific columns from the DataFrame
     Set the 'Date' column as the index of the DataFrame
@@ -84,7 +86,7 @@ def load_data_from_binance():
     '''
     client = storage.Client()
     bucket = client.bucket('data-wrangling')
-    blob = bucket.blob('BTC-USD_dummy.csv')
+    blob = bucket.blob(f'BTC-USD_{endtime}.csv')
     content = blob.download_as_text()
     # Convert CSV content to a pandas DataFrame
     df = pd.read_csv(StringIO(content))
