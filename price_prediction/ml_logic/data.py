@@ -39,7 +39,7 @@ def download_data(endtime:str, symbol:str, interval:str, limit=5):
 
     if requests.get(url=kline_url, params=params).ok != True:
         print('Issue with Binance API kline connectivity, did not fetch data')
-        return 1
+        return 2
 
     data = requests.get(url=kline_url, params=params).json()
 
@@ -94,5 +94,5 @@ def load_binance_data_from_gcloud(endtime):
     df = df.loc[:,['Date','Open','High','Low','Close','Volume']]
     df = df.set_index('Date')
     df.index = pd.to_datetime(df.index,unit='ms')
-    #something to commit
+ 
     return df
