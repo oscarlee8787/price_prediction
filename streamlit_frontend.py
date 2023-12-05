@@ -35,8 +35,10 @@ d = st.date_input(
 
 d_string = str(d)
 
-download_data(endtime=d_string, symbol='BTCUSDT', interval='1d')
+#download_data(endtime=d_string, symbol='BTCUSDT', interval='1d')
+fds = download_data(endtime=d_string, symbol='BTCUSDT', interval='1d')
 
+st.write(fds,d_string)
 
 # DROP DOWN MENU -----------------------------------------------------------------------
 
