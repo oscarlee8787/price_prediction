@@ -10,3 +10,5 @@ yfinance
 google-cloud-storage
 google-cloud-core
 google-cloud
+plotly
+matplotlib

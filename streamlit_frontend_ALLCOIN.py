@@ -39,8 +39,7 @@ download_data(endtime=d_str, symbol='BTCUSDT', interval='1d')
 # DROP DOWN MENU -----------------------------------------------------------------------
 
 # List of options for the dropdown
-options = ["please select", "Bitcoin"]
-#, "Ethereum", "Litecoin"]
+options = ["please select", "Bitcoin", "Ethereum", "Litecoin"]
 
 # Creating the dropdown menu
 selected_option = st.selectbox("Please choose a curreny to get your prediction:", options)
@@ -50,11 +49,11 @@ coin = None
 if selected_option == "Bitcoin":
     coin = 'BTC-USD'
 
-#if selected_option == "Ethereum":
- #   coin = 'ETH-USD'
+if selected_option == "Ethereum":
+    coin = 'ETH-USD'
 
-#if selected_option == "Litecoin":
-   # coin = 'LTC-USD'
+if selected_option == "Litecoin":
+    coin = 'LTC-USD'
 
 # Fetching the current price
 
@@ -123,9 +122,10 @@ next_day = d + datetime.timedelta(days=1)
 
 # SENDING REQUEST TO OUR FAST API ------------------------------------
 params = dict(
-    X=d_str)
+    X=d_str,
+    coin=coin)
 
 if coin != None:
-    url = 'https://tuesday-wgsxngkdcq-oe.a.run.app/predict'  # FastAPI server URL
+    url = '127.0.0.0:8000/predict'  # FastAPI server URL
     response = requests.get(url, params=params).json()
     st.write(f''' ## The Bitcoin price prediction for {next_day} is: {response["price_prediction"]}''')
