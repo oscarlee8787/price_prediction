@@ -44,7 +44,7 @@ def predict(X):
 
     #api_data = download_data(endtime=X, symbol='BTCUSDT', interval='1d')
     #      sample date: '2023-11-07 08:00:00'
-    download_data(endtime=X, symbol='BTCUSDT', interval='1d')
+    download_data(endtime=X, symbol='BTCUSDT', interval='1d') # --> model was trained on yh volume, but calling binance
 
 
     data = load_binance_data_from_gcloud(X)
