@@ -3,8 +3,6 @@
 README.md
 setup.py
 streamlit_frontend.py
-__pycache__/fastapi.cpython-310.pyc
-__pycache__/veryfast.cpython-310.pyc
 notebooks/Anomalies.ipynb
 price_prediction/__init__.py
 price_prediction.egg-info/PKG-INFO
@@ -18,5 +16,6 @@ price_prediction/api/veryfast.py
 price_prediction/ml_logic/__init__.py
 price_prediction/ml_logic/data.py
 price_prediction/ml_logic/model.py
+price_prediction/ml_logic/params.py
 price_prediction/ml_logic/preprocessor.py
 price_prediction/ml_logic/registry.py

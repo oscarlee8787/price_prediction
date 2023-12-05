@@ -2,6 +2,7 @@ import os
 import glob
 from colorama import Fore, Style
 from tensorflow import keras
+from price_prediction.ml_logic.params import *
 
 def load_model(stage="Production"):
     """
@@ -17,23 +18,30 @@ def load_model(stage="Production"):
 
     """
 
-    LOCAL_REGISTRY_PATH = os.path.join(os.path.expanduser('~'), "code", "oscarlee8787", "price_prediction", "models")
+    file_path = os.path.join(os.path.dirname(__file__), "..", "models", "btc_model_2", "btc_model_3.h5")
 
     print(Fore.BLUE + f"\nLoad latest model from local registry..." + Style.RESET_ALL)
 
     # Get the latest model version name by the timestamp on disk
-    local_model_directory = os.path.join(LOCAL_REGISTRY_PATH, "btc_model")
-    local_model_paths = glob.glob(f"{local_model_directory}/*")
+#    local_model_directory = os.path.join(file_path, "btc_model")
+ #   local_model_paths = glob.glob(f"{local_model_directory}/*")
 
-    if not local_model_paths:
-            return None
+  #  if not local_model_paths:
+   #         return None
 
     most_recent_model_path_on_disk = sorted(local_model_paths)[-1]
 
     print(Fore.BLUE + f"\nLoad latest model from disk..." + Style.RESET_ALL)
 
-    latest_model = keras.models.load_model(most_recent_model_path_on_disk)
+    latest_model = tf.saved_model.load(most_recent_model_path_on_disk)
 
     print("✅ Model loaded from local disk")
 
     return latest_model
+
+
+if __name__ == "__main__":
+    if MODEL_TARGET == 'GCP':
+        print('saving to the cloud')
+    else:
+        print('saving locally')

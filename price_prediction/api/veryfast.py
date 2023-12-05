@@ -42,10 +42,12 @@ def predict(X):
     model = app.state.model
     assert model is not None
 
-    api_data = download_data(endtime=X, symbol='BTCUSDT', interval='1d')
+    #api_data = download_data(endtime=X, symbol='BTCUSDT', interval='1d')
     #      sample date: '2023-11-07 08:00:00'
+    download_data(endtime=X, symbol='BTCUSDT', interval='1d')
 
-    data = load_data_from_binance(api_data)
+
+    data = load_data_from_binance()
 
     df_normed = normalise_zero_base(data)
     df_array = np.array(df_normed)

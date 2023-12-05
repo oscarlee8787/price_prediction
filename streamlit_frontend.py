@@ -5,7 +5,7 @@ import datetime
 import yfinance as yf
 import plotly.graph_objs as go
 import requests
-
+from price_prediction.ml_logic.data import download_data, load_data_from_binance
 
 # BACKGROUND COLOR --------------------------------------------------------------------
 def set_bg_color():
@@ -32,6 +32,11 @@ d = st.date_input(
     "Please enter a date",
     datetime.date.today())
     #datetime.date(2023, 12, 8))
+
+d_string = str(d)
+
+download_data(endtime=d_string, symbol='BTCUSDT', interval='1d')
+
 
 # DROP DOWN MENU -----------------------------------------------------------------------
 
@@ -116,14 +121,15 @@ if coin != None:
 #print(f"Unix Time in milliseconds: {unix_milliseconds}")
 
 # Adding one day to the current date
-next_day = d + datetime.timedelta(days=1)
+#next_day = d + datetime.timedelta(days=1)
 
 # SENDING REQUEST TO OUR FAST API ------------------------------------
 params = dict(
     X=d)
 
-if coin != None:
+'''if coin != None:
     url = 'http://localhost:8000/predict/'  # FastAPI server URL
     response = requests.get(url, params=params).json()
 
     st.write(f'The Bitcoin price prediction for {next_day} is: {response["price_prediction"]}')
+'''
