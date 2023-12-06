@@ -35,8 +35,8 @@ def download_data(endtime:str, symbol:str, interval:int, limit=5):
             }
 
     data = requests.get(url=url, params=params).json()
-    print(data)
-    return data
+    # print(data)
+    # return data
     
     result = data["result"]["XXBTZUSD"][:5]
 
