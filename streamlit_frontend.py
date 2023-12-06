@@ -4,7 +4,7 @@ import pandas as pd
 import datetime
 import yfinance as yf
 import matplotlib.pyplot as plt
-# import plotly.graph_objs as go
+import plotly.graph_objs as go
 import requests
 from price_prediction.ml_logic.data import download_data
 
@@ -97,25 +97,25 @@ if coin != None:
 # Function to fetch and plot stock data
 
 
-# def plot_stock(coin):
-#     # Load stock data
-#     data = yf.download(coin, start=datetime.date.today()-datetime.timedelta(days=90), end=datetime.date.today())
+def plot_stock(coin):
+    # Load stock data
+    data = yf.download(coin, start=datetime.date.today()-datetime.timedelta(days=90), end=datetime.date.today())
 
-#     # Plotting
-#     fig = go.Figure()
-#     fig.add_trace(go.Candlestick(x=data.index,
-#                 open=data['Open'],
-#                 high=data['High'],
-#                 low=data['Low'],
-#                 close=data['Close'],
-#                 name='market data'))
+    # Plotting
+    fig = go.Figure()
+    fig.add_trace(go.Candlestick(x=data.index,
+                open=data['Open'],
+                high=data['High'],
+                low=data['Low'],
+                close=data['Close'],
+                name='market data'))
 
-#     fig.update_layout(title=f'{coin}',
-#                       xaxis_rangeslider_visible=False)
-#     st.plotly_chart(fig, use_container_width=True)
+    fig.update_layout(title=f'{coin}',
+                      xaxis_rangeslider_visible=False)
+    st.plotly_chart(fig, use_container_width=True)
 
-# if coin != None:
-#     plot_stock(coin)
+if coin != None:
+    plot_stock(coin)
 
 # converting DATE to UNIX milliseconds ------------------------------------------------------
 
