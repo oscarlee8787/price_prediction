@@ -8,20 +8,36 @@ import requests
 from price_prediction.ml_logic.data import download_data
 
 # BACKGROUND COLOR --------------------------------------------------------------------
-def set_bg_color():
-    st.markdown(
-        f"""
+#def set_bg_color():
+#    st.markdown(
+#        f"""
+ #       <style>
+#        .stApp {{
+#            background-color: #ADD8E6;  # You can change this hex color as you want
+ #       }}
+#        </style>
+#        """,
+ #       unsafe_allow_html=True
+ #   )
+
+def set_bg_from_url(url):
+    st.markdown(f"""
         <style>
         .stApp {{
-            background-color: #ADD8E6;  # You can change this hex color as you want
+            background-image: url({url});
+            background-size: cover;
         }}
         </style>
-        """,
-        unsafe_allow_html=True
-    )
+        """, unsafe_allow_html=True)
+
+set_bg_from_url("https://elements-video-cover-images-0.imgix.net/files/9ae69261-0ac4-43b2-9f39-7ecc51579ade/inlin[…]in&h=394&w=700&s=9c4ce31d5ac33b74260261ea42407aa3")
+
+
+
+
 
 # Call the function to set the background color
-set_bg_color()
+#set_bg_color()
 
 # HEADERS ------------------------------------------------------------------------------
 st.markdown("""# Crypto Price Prediction

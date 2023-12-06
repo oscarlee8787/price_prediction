@@ -25,6 +25,8 @@ app.add_middleware(
 
 # 💡 Preload the model to accelerate the predictions
 
+
+
 app.state.model = keras.models.load_model(os.path.join(os.path.dirname(__file__), "..", "models", "btc_model_2", "btc_model_3.h5"))
 
 @app.get("/predict")
