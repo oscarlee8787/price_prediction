@@ -42,15 +42,15 @@ def download_data(endtime:str, symbol:str, interval:int, limit=5):
 
     return df
     
-    df.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'volume_weighted_avg_price',
-            'Volume', 'Num_trades']
-    for col in ['Open', 'High', 'Low', 'Close', 'volume_weighted_avg_price',
-                'Volume', 'Num_trades']:
-        df[col] = df[col].astype(float)
+    # df.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'volume_weighted_avg_price',
+    #         'Volume', 'Num_trades']
+    # for col in ['Open', 'High', 'Low', 'Close', 'volume_weighted_avg_price',
+    #             'Volume', 'Num_trades']:
+    #     df[col] = df[col].astype(float)
 
-    df.Date = df.Date * 1000 # turning seconds to milliseconds because kraken uses seconds but loading function was written for binance which uses millisec
+    # df.Date = df.Date * 1000 # turning seconds to milliseconds because kraken uses seconds but loading function was written for binance which uses millisec
 
-    return 0
+    # return 0
 
 
 
