@@ -30,9 +30,9 @@ def download_data(endtime:str, symbol:str, interval:str, limit=5):
 
     check_url = root_url + 'ping'
 
-    if requests.get(check_url).ok != True: #calls the ping endpoint of Binance to check if the api is working
-        print('Issue with Binance API general connectivity, did not fetch data')
-        return 1
+    # if requests.get(check_url).ok != True: #calls the ping endpoint of Binance to check if the api is working
+    #     print('Issue with Binance API general connectivity, did not fetch data')
+    #     return 1
 
     dt_obj = datetime.strptime(endtime,'%Y-%m-%d')
     next_day = dt_obj + timedelta(days=1) #adds one day so we get 5 days from Binance API, with input day as the last day
