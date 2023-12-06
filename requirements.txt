@@ -4,7 +4,7 @@ pandas
 numpy
 requests
 datetime
-tensorflow
+#tensorflow
 colorama
 yfinance
 google-cloud-storage
