@@ -42,8 +42,6 @@ def download_data(endtime:str, symbol:str, interval:str, limit=5):
               'interval':interval,
               'symbol':symbol,
               'limit':limit,
-              'apiKey':'u9unSAH9KPNUvJapK6ELUT7NdrI5tcJvDtt76gqw5PDN2Mfvr9f0mXCCvNHOvwjs',
-              'secretKey':'qKjyVouARWVhxrvglcm8stYgTefklDN45DOs7xQ6hZWer9WS7bjuakF30jcBSIJu'
               }
     kline_url = root_url + 'klines'
 
