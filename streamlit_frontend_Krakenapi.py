@@ -35,11 +35,10 @@ def download_data(endtime:str, symbol:str, interval:int, limit=5):
             }
 
     data = requests.get(url=url, params=params).json()
-    # print(data)
-    # return data
     
     result = data["result"]["XXBTZUSD"][:5]
 
+    return result
 
     df = pd.DataFrame(result)
     df.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'volume_weighted_avg_price',
