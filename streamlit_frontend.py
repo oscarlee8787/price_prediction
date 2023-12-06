@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import datetime
 import yfinance as yf
+import matplotlib.pyplot as plt
 # import plotly.graph_objs as go
 import requests
 from price_prediction.ml_logic.data import download_data
