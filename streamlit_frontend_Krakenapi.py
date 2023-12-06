@@ -34,7 +34,7 @@ def download_data(endtime:str, symbol:str, interval:int, limit=5):
             'since': seconds
             }
 
-    data = requests.get(url=url, params=params)#.json()
+    data = requests.get(url=url, params=params).json()
     print(data)
     return data
     
