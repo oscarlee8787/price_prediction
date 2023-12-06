@@ -3,6 +3,8 @@ import numpy as np
 import pandas as pd
 import datetime
 import yfinance as yf
+import matplotlib
+matplotlib.use("Agg")  # Agg is a non-interactive backend that should work with Streamlit
 import matplotlib.pyplot as plt
 # import plotly.graph_objs as go
 import requests
