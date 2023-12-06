@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 import plotly.graph_objs as go
 import requests
 # from price_prediction.ml_logic.data import download_data
+from google.cloud import storage
+from io import StringIO
 
 arr = np.random.normal(1, 1, size=100)
 fig, ax = plt.subplots()
@@ -34,14 +36,16 @@ def download_data(endtime:str, symbol:str, interval:str, limit=5):
     #     print('Issue with Binance API general connectivity, did not fetch data')
     #     return 1
 
-    dt_obj = datetime.strptime(endtime,'%Y-%m-%d')
-    next_day = dt_obj + timedelta(days=1) #adds one day so we get 5 days from Binance API, with input day as the last day
+    dt_obj = datetime.datetime.strptime(endtime,'%Y-%m-%d')
+    next_day = dt_obj + datetime.timedelta(days=1) #adds one day so we get 5 days from Binance API, with input day as the last day
     millisec = int(next_day.timestamp() * 1000) #converts the date/time from string to milliseconds that the api requires
 
     params = {'endTime':millisec,
               'interval':interval,
               'symbol':symbol,
               'limit':limit,
+              'apiKey':'u9unSAH9KPNUvJapK6ELUT7NdrI5tcJvDtt76gqw5PDN2Mfvr9f0mXCCvNHOvwjs',
+              'apiSecret':'qKjyVouARWVhxrvglcm8stYgTefklDN45DOs7xQ6hZWer9WS7bjuakF30jcBSIJu'
               }
     kline_url = root_url + 'klines'
 
