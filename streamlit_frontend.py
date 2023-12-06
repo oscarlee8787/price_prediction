@@ -37,7 +37,7 @@ def set_bg_from_url(url):
         </style>
         """, unsafe_allow_html=True)
 
-set_bg_from_url("https://elements-video-cover-images-0.imgix.net/files/9ae69261-0ac4-43b2-9f39-7ecc51579ade/inlin[…]in&h=394&w=700&s=9c4ce31d5ac33b74260261ea42407aa3")
+set_bg_from_url("https://elements-video-cover-images-0.imgix.net/files/9ae69261-0ac4-43b2-9f39-7ecc51579ade/inline_image_preview.jpg?auto=compress%2Cformat&fit=min&h=394&w=700&s=9c4ce31d5ac33b74260261ea42407aa3")
 
 
 
