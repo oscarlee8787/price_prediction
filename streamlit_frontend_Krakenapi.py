@@ -34,10 +34,13 @@ def download_data(endtime:str, symbol:str, interval:int, limit=5):
             'since': seconds
             }
     data = requests.get(url=url, params=params).json()
+    
     result = data["result"]["XXBTZUSD"][:5]
     # breakpoint()
 
     df = pd.DataFrame(result)
+
+    
     df.columns = ['Date', 'Open', 'High', 'Low', 'Close', 'volume_weighted_avg_price',
             'Volume', 'Num_trades']
     for col in ['Open', 'High', 'Low', 'Close', 'volume_weighted_avg_price',
@@ -46,12 +49,14 @@ def download_data(endtime:str, symbol:str, interval:int, limit=5):
 
     df['Date'] = df['Date'] * 1000 # turning seconds to milliseconds because kraken uses seconds but loading function was written for binance which uses millisec
 
+
     client = storage.Client()
     bucket = client.bucket('data-wrangling')
     blob = bucket.blob(f'BTC-USD_{endtime}.csv')
     blob.upload_from_string(df.to_csv(index=False), content_type='text/csv')
 
     return 0
+
 
 
 
