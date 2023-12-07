@@ -135,33 +135,9 @@ def get_current_price(coin):
 if coin != None:
 
     current_price = get_current_price(coin)
-    st.write(f'Current price of {selected_option} ({coin}): ${current_price:.2f}')
+    st.write(f'''## Current price of {selected_option} ({coin}): ${current_price:.2f}''')
 
 
-# SHOW THE CHART! ----------------------------------------------------------------------
-
-# Function to fetch and plot stock data
-
-
-def plot_stock(coin):
-    # Load stock data
-    data = yf.download(coin, start=datetime.date.today()-datetime.timedelta(days=90), end=datetime.date.today())
-
-    # Plotting
-    fig = go.Figure()
-    fig.add_trace(go.Candlestick(x=data.index,
-                open=data['Open'],
-                high=data['High'],
-                low=data['Low'],
-                close=data['Close'],
-                name='market data'))
-
-    fig.update_layout(title=f'{coin}',
-                      xaxis_rangeslider_visible=False)
-    st.plotly_chart(fig, use_container_width=True)
-
-if coin != None:
-    plot_stock(coin)
 
 # converting DATE to UNIX milliseconds ------------------------------------------------------
 
@@ -198,3 +174,28 @@ if coin != None:
     url = 'https://wednesday-wgsxngkdcq-oe.a.run.app/predict'  # FastAPI server URL
     response = requests.get(url, params=params).json()
     st.write(f''' ## The Bitcoin price prediction for {next_day} is: {response["price_prediction"]}''')
+
+# SHOW THE CHART! ----------------------------------------------------------------------
+
+# Function to fetch and plot stock data
+
+
+def plot_stock(coin):
+    # Load stock data
+    data = yf.download(coin, start=datetime.date.today()-datetime.timedelta(days=90), end=datetime.date.today())
+
+    # Plotting
+    fig = go.Figure()
+    fig.add_trace(go.Candlestick(x=data.index,
+                open=data['Open'],
+                high=data['High'],
+                low=data['Low'],
+                close=data['Close'],
+                name='market data'))
+
+    fig.update_layout(title=f'{coin}',
+                      xaxis_rangeslider_visible=False)
+    st.plotly_chart(fig, use_container_width=True)
+
+if coin != None:
+    plot_stock(coin)
