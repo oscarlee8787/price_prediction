@@ -98,8 +98,8 @@ d = st.date_input(
     #datetime.date(2023, 12, 8))
 
 d_str = str(d)
-j = download_data(endtime=d_str, symbol='BTCUSD', interval=1440)
-st.write(j)
+download_data(endtime=d_str, symbol='BTCUSD', interval=1440)
+
 # DROP DOWN MENU -----------------------------------------------------------------------
 
 # List of options for the dropdown
