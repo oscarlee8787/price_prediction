@@ -187,7 +187,7 @@ next_day = d + datetime.timedelta(days=1)
 
 # SENDING REQUEST TO OUR FAST API ------------------------------------
 params = dict(
-    X=d)
+    X=d_str)
 
 if coin != None:
     url = 'https://wednesday-wgsxngkdcq-oe.a.run.app/predict'  # FastAPI server URL
