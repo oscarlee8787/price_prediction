@@ -47,6 +47,8 @@ def download_data(endtime:str, symbol:str, interval:int, limit=5):
                 'Volume', 'Num_trades']:
         df[col] = df[col].astype(float)
 
+    df['Date'] = df['Date'] * 1000 # turning seconds to milliseconds because kraken uses seconds but loading function was written for binance which uses millisec
+
 
     client = storage.Client()
     bucket = client.bucket('data-wrangling')
