@@ -83,7 +83,7 @@ def set_bg_from_url(url):
         </style>
         """, unsafe_allow_html=True)
 
-set_bg_from_url("https://www.crypto-news-flash.com/wp-content/uploads/2022/05/bitcoin-g21ad3cc3b_1920-1200x600.jpg")
+set_bg_from_url("https://i.imgur.com/ut91aPj.jpeg")
 
 
 
