@@ -3,3 +3,5 @@ raw_data/
 .pyc
 *.pyc
 .env
+.vscode/
+__pycache__/
