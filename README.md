@@ -27,9 +27,12 @@ Interface built with streamlit (https://magicrypto.streamlit.app/). Image enviro
 
 
 #### Website
-![[Screen Shot 2023-12-16 at 10.26.21 PM 1.png]]
 
-![[Screen Shot 2023-12-16 at 10.27.58 PM.png]]
+<img width="1463" alt="Screen Shot 2023-12-16 at 10 26 21 PM" src="https://github.com/oscarlee8787/price_prediction/assets/73566517/ed85bb41-e149-4282-b38f-8269358c712b">
+
+<img width="1451" alt="Screen Shot 2023-12-16 at 10 27 58 PM" src="https://github.com/oscarlee8787/price_prediction/assets/73566517/e3969664-44ed-434d-9a16-4fc143b352f1">
+
+
 
 ## Training data source
 BTCUSD daily k-line data from Yahoo Finance. Dates: 2015-2023
