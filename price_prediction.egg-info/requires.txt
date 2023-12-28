@@ -1,9 +1,0 @@
-fastapi
-uvicorn
-pandas
-numpy
-requests
-datetime
-tensorflow
-colorama
-yfinance
